@@ -39,7 +39,7 @@
 - name: Install Nginx web server
   ansible.builtin.yum:
     name: nginx
-    state: latest
+    state: installed
 
 - name: Recursively remove directory
   ansible.builtin.file:
