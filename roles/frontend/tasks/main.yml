@@ -20,7 +20,7 @@
 #print_status $?
 #
 #print_head "Copying nginx conf file"
-#cp ${code_dir}/configs/nginx-roboshop.conf /etc/nginx/default.d/roboshop.conf &>>${log_file}
+#cp ${code_dir}/configs/nginx-nginx-roboshop.conf /etc/nginx/default.d/nginx-roboshop.conf &>>${log_file}
 #print_status $?
 #
 #print_head "ENabling and Restarting the nginx"
@@ -57,3 +57,16 @@
     src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
     dest: /usr/share/nginx/html
     remote_src: yes
+
+- name: Create roboshop-nginx config
+  ansible.builtin.copy:
+    src: nginx-roboshop.conf
+    dest: /etc/nginx/default.d/nginx-roboshop.conf
+
+- name: Start Nginx Service
+  ansible.builtin.systemd:
+    name: nginx
+    enabled: true
+    state: restarted
+
+
