@@ -33,7 +33,7 @@
 
 - name: Enalbe Redis 6.2 repo and Install
   ansible.builtin.dnf:
-    name: "@redis@remi-6.2"
+    name: "@redis:remi-6.2"
     state: installed
 
 - name: Update Redis listen address
