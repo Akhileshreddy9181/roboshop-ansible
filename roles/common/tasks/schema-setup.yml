@@ -1,21 +1,27 @@
-#if [ "${schema_type}" == "mongo" ]; then
-#print_head "Copy MongoDB repo file"
-#cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${log_file}
-#print_status $?
-#
-#print_head "Install MongoDB Shell"
-#yum install mongodb-org-shell -y &>>${log_file}
-#print_status $?
-#
-#print_head "Load the Schema into MongoDB Database"
-#mongo --host mongodb-dev.devopsa.online </app/schema/${component}.js &>>${log_file}
-#print_status $?
-#elif [ "${schema_type}" == "mysql" ]; then
-#print_head "Installing MySQL CLient"
-#yum install mysql -y &>>${log_file}
-#print_status $?
-#
-#print_head "Load Schema"
-#mysql -h mysql-dev.devopsa.online -uroot -p${mysql_root_passwd} < /app/schema/shipping.sql &>>${log_file}
-#print_status $?
-#fi
+
+- name: MongoDB schema
+  when: schema_type =="mongo"
+  block:
+    - name: SetUp MongoDB repo file
+      ansible.nuiltin.copy:
+        src: mongodb.repo
+        dest: /etc/yum.repos.d/mongo.repo
+
+    - name: Install Mongo Client
+      ansible.builtin.yum:
+        name: mongo-org-shell
+        state: installed
+
+    - name: Load schema
+      ansible.builtin.shell: mongo --host mongodb-dev.devopsa.online </app/schema/${{component}}.js
+
+- name: MySQL schema
+  when: schema_type =="mysql"
+  block:
+    - name: Install MySQL Client
+      ansible.builtin.yum:
+        name: mysql
+        state: installed
+
+    - name: Load schema
+      ansible.builtin.shell: mysql -h mysql-dev.devopsa.online -uroot -pRoboShop@1 < /app/schema/{{component}}.sql
