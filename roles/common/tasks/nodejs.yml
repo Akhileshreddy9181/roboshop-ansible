@@ -1,0 +1,31 @@
+
+#print_head "Installing all the node libraries and dependencies"
+#npm install &>>${log_file}
+#print_status $?
+#
+#
+#schema_setup
+#
+#systemd_setup
+
+
+- name: SetUp NodeJS Repo
+  ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+
+- name: Install Nodejs
+  ansible.builtin.yum:
+    name: nodejs
+    state: installed
+
+- name: Import app-prerequisites
+  ansible.builtin.import_tasks:
+    file: app-prereq.yml
+
+- name: Installing all the node libraries and dependencies
+  community.general.npm:
+    path: /app
+
+- name: Load if schema is defined
+  ansible.builtin.import_tasks:
+    file: schema_setup.yml
+  when: schema_type is defined
