@@ -1,2 +1,2 @@
 component: cart
-schem_type: mongo
+schema_type: mongo
