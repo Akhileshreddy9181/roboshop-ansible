@@ -59,7 +59,7 @@
     remote_src: yes
 
 - name: Create roboshop-nginx config
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: nginx-roboshop.conf
     dest: /etc/nginx/default.d/nginx-roboshop.conf
 
