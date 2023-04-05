@@ -6,7 +6,8 @@
 
 - name: Copy Prometheus node exporter service fille
   ansible.builtin.template:
-    src: /etc/systemd/system/node_exporter.service
+    src: exporter.service
+    dest: /etc/systemd/system/node_exporter.service
 
 - name: Start Node Exporter Service
   ansible.builtin.systemd:
