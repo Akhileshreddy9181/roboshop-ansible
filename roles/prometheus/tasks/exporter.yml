@@ -4,4 +4,14 @@
     dest: /opt
     remote_src: true
 
-#https://github.com/prometheus/node_exporter/releases/download/v1.5.0/node_exporter-1.5.0.linux-amd64.tar.gz
+- name: Copy Prometheus node exporter service fille
+  ansible.builtin.template:
+    src: /etc/systemd/system/node_exporter.service
+
+- name: Start Node Exporter Service
+  ansible.builtin.systemd:
+    name: node_exporter
+    state: restarted
+    enabled: true
+    daemon-reload: yes
+
