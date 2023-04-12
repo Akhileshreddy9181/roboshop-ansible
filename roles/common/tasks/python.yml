@@ -1,4 +1,10 @@
 
+- name: Update package index
+  ansible.builtin.yum:
+    name: '*'
+    state: latest
+    update_cache: yes
+
 - name: Install Python
   ansible.builtin.yum:
     name:
