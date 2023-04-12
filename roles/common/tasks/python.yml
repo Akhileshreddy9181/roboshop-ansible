@@ -1,9 +1,9 @@
 
-- name: Update package index
-  ansible.builtin.yum:
-    name: '*'
-    state: latest
-    update_cache: yes
+- name: Install CentOS GPG key
+  ansible.builtin.rpm_key:
+    key: https://www.centos.org/keys/RPM-GPG-KEY-CentOS-Official
+    state: present
+
 
 - name: Install Python
   ansible.builtin.yum:
