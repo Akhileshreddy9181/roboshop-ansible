@@ -1,0 +1,11 @@
+## CPU
+
+100 - (avg by (name) (rate(node_cpu_seconds_total{mode="idle"}[1m] )) * 100)
+
+## Memory
+
+100 - ((node_memory_Buffers_bytes + node_memory_Cached_bytes + node_memory_MemFree_bytes)*100 / node_memory_MemTotal_bytes)
+
+## SystemD Service Status
+
+node_systemd_unit_state{exported_name="payment.service",state="active"}
