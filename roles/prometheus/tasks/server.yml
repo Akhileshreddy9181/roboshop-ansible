@@ -14,3 +14,7 @@
   ansible.builtin.systemd:
     name: prometheus
     state: restarted
+
+- name: Check Prometheus Started Or Not
+  ansible.builtin.shell: netstat -lntp | grep 9090
+
