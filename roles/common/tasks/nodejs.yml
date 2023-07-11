@@ -21,9 +21,9 @@
   ansible.builtin.import_tasks:
     file: app-prereq.yml
 
-- name: Installing all the node libraries and dependencies
-  community.general.npm:
-    path: /app
+#- name: Installing all the node libraries and dependencies
+#  community.general.npm:
+#    path: /app
 
 - name: Schema SetUP(If defined)
   ansible.builtin.import_tasks:
